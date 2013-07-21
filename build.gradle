@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+task wrapper(type: Wrapper){
+    gradleVersion = '1.6'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'org.mortbay.jetty:jetty:7.0.0.pre4'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest.mainAttributes("Main-Class" : "Main")
+}
+
